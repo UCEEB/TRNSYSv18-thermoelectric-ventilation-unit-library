@@ -13,7 +13,7 @@ Note: The funcionality can be quickly tested via accompanied  example file in fo
 ## Features
 The library contains 
 * Type 221 - Active thermoelectric heat excanger
-* Type 230 - Rule-based controller of the unit
+* Type 230 - Rule-based controller of the active thermoelectric heat exchanger unit
 
 The assembly of these components can simulate energy behaviour of  ventilation unit with "pasive" and "active" heat exchangers for precise conditioning of the supply air. The type 230 controller in assembly with Type 23 PID controller provide rule-based control regimes of the unit such as 
 * operation without active heat exchanger incl. bypass control
