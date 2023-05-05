@@ -1,0 +1,743 @@
+#ESI!
+4.0
+Thermoelectric Ventilation Unit Controller
+0
+
+Vojtech  Zavrel
+Czech Technical University  in Prague
+1
+
+2
+34
+05/12/ 2021
+Vojtech  Zavrel
+04/08/2022
+1
+
+noowner
+__
+__
+__
+10
+This type represents control toolbox for type 221 - Sensible Air-to-Air Heat Recovery with Active Heat Exchanger. This model is developed based on typical control logic for this type of unit. The logic considers 5 control modes for active HX:
+
+mode 0 - no operation of active heat exchanger
+mode 1 - ventilation mode
+mode 2 - discomfort hours mitigation
+mode 3 - overheating hours mitigation
+mode 4 - underheating hours mitigation
+
+The component is designed to be in assembly with Fan types, Loads and Structures types and Controllers. Specifically type 23 - PID Controller is required for Active  (Thermoelectric) Heat Exchanger control
+
+0
+0
+0
+0
+0
+0
+__
+__
+__
+1
+
+0
+__
+__
+__
+__
+0
+0
+__
+
+__
+__
+__
+34
+Mode - Active HX
+SN
+8
+The settings of this mode change the control strategy for active thermoelectric HX.
+Mode 0 - Active HX is disabled
+Mode 1 - Ventilation mode for Active HX is applied. The supply temperature is maintained to reach the input # 6 Setpoint Supply Air Temperature (SP for post-heating) in combination with input #7 Deadband (SP + deadband for post-cooling). This mode utilized only limited capacity for post conditioning of the supply air after the passive HX.
+Mode 2 – General discomfort mitigation mode for Active HX is applied. The return temperature is maintained to reach the comfort boundaries given by input #8 Upper Comfort Boundary Temperature and input #9 Lower Comfort Boundary Temperature. This mode utilized maximum possible capacity of the unit to reduce the discomfort hours in the attached zone.
+Mode 3 - Overheating mitigation mode for Active HX is applied. The return temperature is maintained to reach the comfort boundaries given by input #8 Upper Comfort Boundary Temperature. This mode utilized maximum possible capacity of the unit to reduce the discomfort hours in the attached zone. If the upper limit is reached, the ventilation mode is applied.
+Mode 4 – Underheating mitigation mode for Active HX is applied. The return temperature is maintained to reach the comfort boundaries given by input #9 Lower Comfort Boundary Temperature. This mode utilized maximum possible capacity of the unit to reduce the discomfort hours in the attached zone. If the lower limit is reached, the ventilation mode is applied.
+
+The fan control signal may be overwritten in case of discomfort mitigation modes to utilize the maximum capacity. The level of fan signal in these modes depends also on ocuppancy presence, where limited airflow is used to represent limitation related with the noise.
+simple
+integer
+3
++
+0
+4
+[ ; ]
+1
+0
+-
+Dimensionless
+Mode - Fans
+SN
+5
+The settings of this mode change the control strategy for fans.
+Mode 0 - The fan signal is derived from the input #11 Schedule Occupancy (0 to +Inf). Airflow rate 25m3/h are considered per person. If the required airflow rate reaches or exceeds the parameter #4 Rated Unit Flowrate of the fan, Rated Unit Flowrate (ctrl signal 1) is considered.
+Mode 1 – The fan signal is derived from the input #12 Schedule Fans (0 to 1). This mode enables direct control of the fans via the inserted control signal. This mode is suitable for advanced control strategies.
+The fan control signal may be overwritten in case of discomfort mitigation modes to utilize the maximum capacity.
+
+simple
+integer
+3
++
+0
+1
+[ ; ]
+0
+0
+-
+Dimensionless
+Rated Unit Electric Current
+SN
+1
+Rated Unit Electric Current given by the manufacturer
+simple
+real
+3
++
+0
++Inf
+[ ; ]
+12
+0
+-
+Dimensionless
+Rated Unit Flowrate
+SN
+1
+Rated Unit Flowrate given by the manufacturer
+simple
+real
+3
++
+0
++Inf
+[ ; ]
+200
+0
+-
+Dimensionless
+Sensor Fresh Air Temperature
+SN
+1
+Sensored temperature for Fresh Air Temperature. To be in assembly with type 221: Sensible Air-to-Air Heat Recovery with Active Heat Exchanger
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+0
+0
+C
+Temperature
+Sensor Return Air Temperature
+SN
+1
+Sensored temperature for Return Air Temperature. To be in assembly with type 221: Sensible Air-to-Air Heat Recovery with Active Heat Exchanger
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+0
+0
+C
+Temperature
+Sensor Supply Air Temperature
+SN
+1
+Sensored temperature for Supply Air Temperature
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+0
+0
+C
+Temperature
+Sensor Exhaust Air Temperature
+SN
+1
+Sensored temperature for Exhaust Air Temperature. To be in assembly with type 221: Sensible Air-to-Air Heat Recovery with Active Heat Exchanger
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+0
+0
+C
+Temperature
+Sensor Heat Recovery Outlet Temperature
+SN
+1
+Sensored temperature for Heat Recovery Outlet Temperature. To be in assembly with type 221: Sensible Air-to-Air Heat Recovery with Active Heat Exchanger
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+0
+0
+C
+Temperature
+Setpoint Supply Air Temperature
+SN
+5
+Setpoint for Supply Air Temperature used in control mode 1 of active HX for ventilation strategy
+
+If ventilation mode is applied, then
+Heating Setpoint = Setpoint for Supply Air Temperature
+Cooling Setpoint = Setpoint for Supply Air Temperature+Deadband
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+24
+0
+C
+Temperature
+Deadband for Supply air temperature
+SN
+5
+Deadband for Supply Air Temperature used in control mode 1 of active HX. This deadband is applied for ventilation strategy to avoid oscilation between active HX heating/coolidng mode. The minimum delta C is 1 K.
+
+If ventilation mode is applied, then
+Heating Setpoint = Setpoint for Supply Air Temperature
+Cooling Setpoint = Setpoint for Supply Air Temperature+Deadband
+simple
+real
+1
++
+1
++Inf
+[ ; ]
+2
+0
+deltaC
+Temp. Difference
+Upper Comfort Boundery Temperature
+SN
+3
+Upper Comfort Boundery Temperature is used for discomfort hour mitigation modes, thus control modes 2 to 4 of active HX. The unit will use full available capacity to keep the attached zone (Sensor Return Air Temperature) within the comfort boundery defined by these limits.
+
+Upper Comfort Boundery > Lower Comfort Boundery
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+27
+0
+C
+Temperature
+Lower Comfort Boundery Temperature
+SN
+3
+Lower Comfort Boundery Temperature is used for discomfort hour mitigation modes, thus control modes 2 to 4 of active HX. The unit will use full available capacity to keep the attached zone (Sensor Return Air Temperature) within the comfort boundery defined by these limits.
+
+Upper Comfort Boundery > Lower Comfort Boundery
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+21
+0
+C
+Temperature
+General On/Off
+SN
+1
+General ON/OFF signal for unit and fans.
+simple
+integer
+1
++
+0
+1
+[ ; ]
+1
+0
+-
+Dimensionless
+Schedule Occupancy
+SN
+5
+Occupancy schedule indicating the number of occupance in the attached zone.
+
+ If control mode of fans is equal to 0,  this schedule will determined the required airflow. The occupancy schedule also indicating room usage as  periods,where the fans must be limited due to the acousting discomfort. Even for control mode of active HX for discomfort mitication, only partial unit capacity can be used, when the attached zone is occupied.
+
+If no capacity limitation are desired use mode for  fans equals to 1; and 0 occupancy.
+simple
+real
+1
++
+0
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+Schedule Fans
+SN
+4
+Fan schedule indicating the control level of airflow (0-1) for more advance control strategies.
+If control mode of fans is equal to 1,  this schedule will determined the required airflow.
+
+If no capacity limitation are desired use mode for  fans equals to 1; and 0 occupancy.
+simple
+real
+1
++
+0
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Control Signal
+SN
+1
+PID control signal. To be in assembly with type23
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+Unit On/Off
+SN
+1
+Unit On/Off to be in assembly with Type 221
+simple
+real
+2
++
+0
+1
+[ ; ]
+0
+0
+-
+Dimensionless
+Electric Current to Thermoelectric
+SN
+1
+Electric Current to Thermoelectric to be in assembly with Type 221
+simple
+real
+2
++
+0
++Inf
+[ ; ]
+0
+0
+amperes
+Electric current
+Thermoelectric HX Mode - Cooling/Heating
+SN
+1
+Thermoelectric HX Mode - Cooling/Heating to be in assembly with Type 221
+simple
+integer
+2
++
+0
+1
+[ ; ]
+0
+0
+-
+Dimensionless
+Bypass signal - Heat Recovery HX
+SN
+1
+Bypass signal - Heat Recovery HX to be in assembly with Type 221
+simple
+real
+2
++
+0
+1
+[ ; ]
+0
+0
+-
+Dimensionless
+Bypass signal - Thermoelectric HX
+SN
+1
+Bypass signal - Thermoelectric HX to be in assembly with Type 221
+simple
+real
+2
++
+0
+1
+[ ; ]
+0
+0
+-
+Dimensionless
+Fan Control Signal
+SN
+1
+Fan Control Signal to be in assembly with components representing fans
+simple
+real
+2
++
+0
+1
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Setpoint
+SN
+1
+PID-Setpoint to be in assembly with Type 23 -  PID
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Controlled variable
+SN
+1
+PID-Controlled variable to be in assembly with Type 23 -  PID
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-On/Off
+SN
+1
+PID-On/Off variable to be in assembly with Type 23 -  PID
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Minimum control signal
+SN
+1
+PID-Minimum control signal to be in assembly with Type 23 -  PID
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Maximum control signal
+SN
+1
+PID-Maximum control signal to be in assembly with Type 23 -  PID
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Threshold for non-zero output
+SN
+1
+PID-Threshold for non-zero output to be in assembly with Type 23 -  PID
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Gain constant
+SN
+1
+PID-Gain constant to be in assembly with Type 23 -  PID
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Integral time
+SN
+1
+PID-Integral time to be in assembly with Type 23 -  PID
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Derivative time
+SN
+1
+PID-Derivative time to be in assembly with Type 23 -  PID
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+PID-Gain tunning ratio
+SN
+5
+The default PID controller setings can be tuned via this input. This input works as correction e.g. PID gain = (default PID gain)*tunning ratio
+The default settings of PID is following:
+- Gain 0.1 (-)
+- Intergal time 1 min (-)
+
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+1
+0
+-
+Dimensionless
+PID-Integral time tunnig ratio
+SN
+5
+The default PID controller setings can be tuned via this input. This input works as correction e.g. PID integral time = (default PID integral time)*tunning ratio
+The default settings of PID is following:
+- Gain 0.1 (-)
+- Intergal time 1 min (-)
+
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+1
+0
+-
+Dimensionless
+0
+0
+0
+0
+0
+
+*** trnModel specific properties ***
+9999
+230
+
+9
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+9
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+0
+0
+14
+0
+
+
+1
+100
+0
+14
+0
+
+
+1
+100
+0
+3
+0
+
+
+1
+100
+-1
+-1
+0
+
+
+1
+100

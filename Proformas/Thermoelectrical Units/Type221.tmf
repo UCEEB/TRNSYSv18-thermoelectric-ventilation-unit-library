@@ -1,0 +1,967 @@
+#ESI!
+4.0
+Sensible Air-to-Air Heat Recovery with Active Heat Exchanger
+0
+
+Vojtech Zavrel adopted from Jeff Thornton
+Czech Technical University  in Prague
+1
+Air-to-Air Heat Recovery with Thermoelectric Heat Exchanger
+2
+50
+07/11/ 2021
+Vojtech Zavrel
+04/08/ 2022
+1
+
+noowner
+__
+__
+__
+4
+This type represents passive heat recovery heat exchanger and active thermoelectrical heat exchanger in series. This model is developed based on catalog-based performance curves for single thermoelectric cell. The performance map contains data about cooling capacity and voltage as function of electric current and temperature difference between so-called hot and cold side of the cell is required.
+
+The component is designed to be in assembly with Fan types, Loads and Structures types and Controllers. Control toolbox specifically for this component is also available.
+
+0
+0
+0
+0
+0
+0
+__
+__
+__
+1
+Air-Air Heat Recovery Device
+0
+__
+__
+__
+__
+0
+0
+__
+.\SourceCode\Types\Type221.f90
+__
+__
+__
+51
+Exhaust Air Temperature
+SN
+1
+The temperature of the exhaust air after it passes through the heat recovery and thermoelectic HX devices.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+20.0
+0
+C
+Temperature
+Exhaust Air Humidity Ratio
+SN
+1
+The absolute humidity ratio of the exhaust air after it passes through the heat recovery and thermoelectic HX devices.
+simple
+real
+2
++
+0.0
++Inf
+[ ; ]
+0.001
+0
+-
+Dimensionless
+Exhaust Air % Relative Humidity
+SN
+1
+The percent relative humidity of the exhaust air after it passes through the heat recovery and thermoelectic HX devices.
+simple
+real
+2
++
+0
+100
+[ ; ]
+50.0
+0
+-
+Dimensionless
+Exhaust Air Flowrate
+SN
+1
+The exhaust dry air flowrate from the heat recovery and thermoelectic HX devices.
+simple
+real
+2
++
+0.0
++Inf
+[ ; ]
+0
+0
+kg/hr
+Flow Rate
+Return Air Temperature
+SN
+1
+The temperature of the exhaust air entering the heat recovery device.
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+20.0
+20.0
+C
+Temperature
+Humidity Mode
+SN
+1
+Indicates whether the inlet air conditions will be set using the absolute humidity ratio inputs (this parameter = 1) or using the percent relative humidity inputs (this parameter = 2).
+simple
+integer
+3
++
+1
+1
+[ ; ]
+1
+0
+-
+Dimensionless
+Logical Unit for Performance Data
+SN
+1
+The logical unit number assigned to the data file that contains the thermoelectrical cell performance data (the total cooling capacity, voltage) as a function of the electric current and temperature differences between so-called hot and cold side of the cell.
+simple
+integer
+3
++
+10
+30
+[ ; ]
+11
+0
+-
+Dimensionless
+Number of Points for Electric Current
+SN
+1
+The number of points for electric current  for which the performance data are given in the performance data file.
+simple
+integer
+3
++
+1
++Inf
+[ ; ]
+11
+0
+-
+Dimensionless
+Number of Points for Temperature Difference
+SN
+1
+The number of points for temperature diference  for which the performance data are given in the performance data file.
+simple
+integer
+3
++
+1
++Inf
+[ ; ]
+13
+0
+-
+Dimensionless
+Rated Electric Current
+SN
+1
+The nominal electric current  when the thermoelectric heat exchanger device is operating.
+simple
+real
+3
++
+0.0
++Inf
+[ ; ]
+8
+1000.0
+amperes
+Electric current
+Return Air Humidity Ratio
+SN
+1
+The absolute humidity ratio of the exhaust air entering the heat recovery device.
+simple
+real
+1
++
+0.0
++Inf
+[ ; ]
+0.005
+0
+-
+Dimensionless
+Return Air % Relative Humidity
+SN
+1
+The percent relative humidity of the exhaust air entering the heat recovery device.
+simple
+real
+1
++
+0
+100.
+[ ; ]
+60.0
+0
+-
+Dimensionless
+Return Air Flowrate
+SN
+1
+The flowrate of the exhaust air entering the heat recovery device.
+simple
+real
+1
++
+0.0
++Inf
+[ ; ]
+0.0
+0
+kg/hr
+Flow Rate
+Return Air Pressure
+SN
+1
+The absolute pressure of the exhaust air entering the heat recovery device.
+simple
+real
+1
++
+0.
++Inf
+[ ; ]
+1.0
+0
+atm
+Pressure
+Return Air Pressure Drop
+SN
+1
+The pressure drop of the exhaust air as it flows through the heat recovery device.
+simple
+real
+1
++
+0.0
++Inf
+[ ; ]
+0
+0
+atm
+Pressure
+Fresh Air Temperature
+SN
+1
+The temperature of the fresh air entering the heat recovery device.
+simple
+real
+1
++
+-Inf
++Inf
+[ ; ]
+20.0
+0
+C
+Temperature
+Fresh Air Humidity Ratio
+SN
+1
+The absolute humidity ratio of the fresh air entering the heat recovery device.
+simple
+real
+1
++
+0.0
++Inf
+[ ; ]
+0.005
+0
+-
+Dimensionless
+Fresh Air % Relative Humidity
+SN
+1
+The percent relative humidity of the fresh air entering the heat recovery device.
+simple
+real
+1
++
+0
+100
+[ ; ]
+50.0
+0
+-
+Dimensionless
+Fresh Air Flowrate
+SN
+1
+The flowrate of the fresh air entering the heat recovery device.
+simple
+real
+1
++
+0.0
++Inf
+[ ; ]
+0.0
+0
+kg/hr
+Flow Rate
+Fresh Air Pressure
+SN
+1
+The absolute pressure of the fresh air entering the heat recovery device.
+simple
+real
+1
++
+0.
++Inf
+[ ; ]
+1.0
+0
+atm
+Pressure
+Fresh Air Pressure Drop
+SN
+1
+The pressure drop of the fresh air as it flows through the heat recovery device.
+simple
+real
+1
++
+0.0
++Inf
+[ ; ]
+0.0
+0
+atm
+Pressure
+Sensible Effectiveness
+SN
+1
+The effectiveness of the heat recovery device for sensible heat transfer.
+simple
+real
+1
++
+0
+1.0
+[ ; ]
+0.6
+0
+Fraction
+Percentage
+Exhaust Air Pressure
+SN
+1
+The absolute air pressure of the exhaust air after its pass through the heat recovery and thermoelectic HX devices.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+atm
+Pressure
+Supply Air Temperature
+SN
+1
+The temperature of the fresh air after it passes through the heat recovery and thermoelectic HX devices.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+20.0
+0
+C
+Temperature
+Supply Air Humidity Ratio
+SN
+1
+The absolute humidity ratio of the fresh air after it passes through the heat recovery and thermoelectic HX devices.
+simple
+real
+2
++
+0.0
++Inf
+[ ; ]
+0.001
+0
+-
+Dimensionless
+Supply Air % Relative Humidity
+SN
+1
+The percent relative humidity of the fresh air after it passes through the heat recovery and thermoelectic HX devices.
+simple
+real
+2
++
+0.0
+100.0
+[ ; ]
+50.0
+0
+-
+Dimensionless
+Supply Air Flowrate 
+SN
+1
+The dry air flowrate of the fresh air stream through the heat recovery and thermoelectic HX devices.
+simple
+real
+2
++
+0.0
++Inf
+[ ; ]
+0.0
+0
+kg/hr
+Flow Rate
+Supply Air Pressure
+SN
+1
+The absolute air pressure of the fresh air after it passes through the heat recovery device and thermoelectic HX devices..
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+atm
+Pressure
+Heat Transfer Rate - Heat Recovery
+SN
+1
+The rate at which heat is transferred from the exhaust air stream to the fresh air stream.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0.0
+0
+kJ/hr
+Power
+Heat Transfer Rate to Supply Air - Thermoelectric HX 
+SN
+1
+
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+dimensionless
+Heat Transfer Rate to Exhaust Air - Thermoelectric HX
+SN
+1
+
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+dimensionless
+Power - Thermoelectric HX
+SN
+1
+The power consumption rate of the thermoelectric heat exchanger device.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0.0
+0
+kJ/hr
+Power
+COP - Thermoelectric HX
+SN
+1
+COP of the thermoelectric HX
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+EER - Thermoelectric HX
+SN
+1
+EER factor of the thermoelectric HX
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+Condensate Temperature - Exhaust Stream
+SN
+1
+The temperature of the condensate from the exhaust stream.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+C
+Temperature
+Condensate Flowrate - Exhaust Stream
+SN
+1
+The flowrate of condensate from the exhaust stream.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+kg/hr
+Flow Rate
+Condensate Temperature - Supply Air Stream
+SN
+1
+The temperature of the condensate from the fresh air stream.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+C
+Temperature
+Condensate Flowrate - Supply Air Stream
+SN
+1
+The flowrate of condensate from the fresh air stream.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+kg/hr
+Flow Rate
+On/Off Control Signal
+SN
+1
+The master on/off control signal for the heat recovery device: ctrl < 0.5: the device will not transfer heat between the two flow streams and the power will be set to 0, ctrl >= 0.5: the device will transfer heat between the two flow streams and the power will be calculated.
+simple
+real
+1
++
+0
+1
+[ ; ]
+1.0
+0
+-
+Dimensionless
+Electric Current to Thermoelectric HX
+SN
+1
+Electric current to the Thermoelectric HX from the controller. The maximal value is given by the parameter Rated Electric Current
+simple
+real
+1
++
+0
++Inf
+[ ; ]
+0
+0
+amperes
+Electric current
+Thermoelectric HX Mode - Cooling/Heating
+SN
+3
+Desired thermoelectric HX mode:
+0 - cooling mode is applied, supply air is cooled down, exhaust air is heated up
+1 - heating mode is applied, supply air is heated up, exhaust air is cooled down
+simple
+integer
+1
++
+0
+1
+[ ; ]
+0
+0
+-
+Dimensionless
+Rated Unit Flowrate 
+SN
+1
+
+simple
+real
+3
++
+0
++Inf
+[ ; ]
+200
+0
+kg/hr
+Flow Rate
+Number Thermoelectric Cells in Parallel
+SN
+1
+
+simple
+integer
+3
++
+1
++Inf
+[ ; ]
+1
+0
+-
+Dimensionless
+Number Thermoelectric Cells in Series
+SN
+1
+
+simple
+integer
+3
++
+1
++Inf
+[ ; ]
+1
+0
+-
+Dimensionless
+Thermal Inefficiency Coeficient 
+SN
+1
+
+simple
+real
+3
++
+0
++Inf
+[ ; ]
+0.32
+0
+-
+Dimensionless
+Electric Inefficiency Coeficient
+SN
+1
+
+simple
+real
+3
++
+0
++Inf
+[ ; ]
+1.3
+0
+-
+dimensionless
+Bypass signal - Heat Recovery HX
+SN
+1
+The bypass control signal for the heat recovery HX (passive HX): ctrl < 0.5: the air stream will pass the heat recovery and heat transfer between the two flow streams is calculated, ctrl >= 0.5: the air stream will bypass the heat recovery HX (passive HX) between the two flow streams is not calculated.
+simple
+real
+1
++
+0
+1
+[ ; ]
+0
+0
+-
+Dimensionless
+Bypass signal - Thermoelectric HX
+SN
+1
+The bypass control signal for the thermoelectric HX (active HX): ctrl < 0.5: the air stream will pass the thermoelectric HX and heat transfer between the two flow streams and power is calculated, ctrl >= 0.5: the air stream will bypass the thermoelectric HX (active HX) and heat transfare between the two flow streams and power is not calculated.
+simple
+real
+1
++
+0
+1
+[ ; ]
+0
+0
+-
+Dimensionless
+Heat Recovery Outlet Temperature
+SN
+1
+The temperature of the fresh air after it passes through the heat recovery device. It may be used for control purposes.
+simple
+real
+2
++
+-Inf
++Inf
+[ ; ]
+0
+0
+C
+Temperature
+Heat Recovery Outlet Humidity Ratio
+SN
+1
+The absolute humidity ratio of the fresh air after it passes through the heat recovery device. It may be used for control purposes.
+simple
+real
+2
++
+0
++Inf
+[ ; ]
+0
+0
+-
+Dimensionless
+Heat Recovery % Relative Humidity
+SN
+1
+The percent relative humidity of the fresh air after it passes through the heat recovery device. It may be used for control purposes.
+simple
+real
+2
++
+0
+100
+[ ; ]
+0
+0
+-
+Dimensionless
+0
+0
+0
+0
+0
+
+*** trnModel specific properties ***
+9999
+221
+
+9
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+
+
+
+0
+9
+
+Which file contains thermoelectric cell performance data?
+.\UserLib\SampleCatalogData\UnifiedFileFormat\TEM_PerformanceMap.dat
+1
+.\UserLib\SampleCatalogData\UnifiedFileFormat\TEM_PerformanceMap.dat
+Logical Unit for Performance Data
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+3
+Humidity Mode
+Rated Power
+Control Mode
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+
+
+
+0
+
+
+0
+7
+Heat Recovery
+Air-Air Heat Recovery
+Air to Air Heat Recovery
+Heat Exchanger
+Heat Recovery Wheel
+Active Exchanger
+Thermoelectric unit
+0
+17
+0
+
+
+1
+50
+0
+22
+0
+
+
+1
+50
+0
+9
+0
+
+
+1
+50
+-1
+-1
+0
+
+
+1
+50
