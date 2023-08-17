@@ -22,4 +22,4 @@ The assembly of these components can simulate energy behaviour of  ventilation u
 * operation with active heat exchanger in underheating mitigation mode incl. bypass control
 
 ## Acknowledgment
-This project has received funding from  the  European  Union’s Horizon 2020     research     and innovation    programme    under grant agreement No 958218 PLURAL
+This project has received funding from  the  European  Union’s Horizon 2020     research     and innovation    programme    under grant agreement No 958218 PLURAL [https://www.plural-renovation.eu/] 
